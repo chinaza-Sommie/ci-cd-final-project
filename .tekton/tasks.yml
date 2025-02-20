@@ -51,12 +51,8 @@ spec:
       image: python:3.9-slim
       workingDir: $(workspaces.source.path)
       script: |
-        #!/usr/bin/env sh
-        set -eu
-        echo "Running nosetests in ${WORKSPACE_SOURCE_PATH} with arguments: $(params.args)"
-        
-        # Install nose if not already installed
-        pip install --no-cache-dir nose
-        
-        # Run tests with provided arguments
+        #!/bin/bash
+        set -e
+        python -m pip install --upgrade pip wheel
+        pip install -r requirements.txt
         nosetests $(params.args)
